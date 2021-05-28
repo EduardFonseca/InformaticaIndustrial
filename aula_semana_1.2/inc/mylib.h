@@ -1,7 +1,6 @@
 #ifndef MYLIB_H
 #define MYLIB_H
-
-int fac(int num);
-float pot(float num, int exp );
-
+double power(double num,int ex);
+double fac(double num);
+double y(double x,int grau);
 #endif

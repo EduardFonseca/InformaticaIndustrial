@@ -4,6 +4,9 @@
 using namespace std;
 
 int main(){
-    cout<<fac(3)<<endl;
+    cout<<y(3,5)<<endl;
+    cout<<y(fac(3),5)<<endl;
+    double pow=power(2,3);
+    cout<<y(pow,5)<<endl;
     return 0;
 }
