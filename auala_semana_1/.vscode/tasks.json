@@ -6,17 +6,18 @@
         {
             "label": "build",
             "type": "shell",
-            "command": "g++",
-            "args": [
-                "-g",
-                "main.cpp",
-                "-o",
-                "Programa1.exe"
-                ],
+            "command": "make",
+            "args": [],
                 "group": {
                     "kind": "build",
                     "isDefault": true
                 }
+        },
+        {
+            "label": "run",
+            "type": "shell",
+            "command": ".\\bin\\IMC.exe",
+            "dependsOn": "build"
         }
     ]
 }
