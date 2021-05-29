@@ -6,7 +6,7 @@ SRC     := src
 INCLUDE := inc
 
 LIBRARIES   :=
-EXECUTABLE  := Ponteiros
+EXECUTABLE  := Contas
 
 
 all: $(BIN)/$(EXECUTABLE)
