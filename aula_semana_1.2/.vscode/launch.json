@@ -8,7 +8,7 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/bin/Equacoes.exe",
+            "program": "${workspaceFolder}/Programa1.exe",
             "preLaunchTask": "build",
             "args": [],
             "stopAtEntry": false,
