@@ -8,7 +8,7 @@ Contas::Contas(){
 }
 
 Contas::Contas(int senha, double saldo , std::string titular){
-    this->titula r= titular;
+    this->titular = titular;
     this->saldo = saldo;
     this->senha = senha;
 }
