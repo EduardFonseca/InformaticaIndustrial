@@ -17,10 +17,10 @@ public:
     std::string tipo;
     int conta;
     void exibeDados();
-    double getSaldo(int senha);
+    void getSaldo(int senha);
     void deposito(double valor, int senha);
     void saque(double valor, int senha);
-    void transferencia(int conta, int senha, double valor,Contas* pc[]);
+    void transferencia(int conta,Contas* pc[]);
 };
 
 

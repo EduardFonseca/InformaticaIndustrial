@@ -11,7 +11,8 @@ int main(){
         pcontas[i]=&c[i];
     }
 
-    pcontas[0]->transferencia(02,1234,5000,pcontas);
+    pcontas[0]->transferencia(02,pcontas);
+    pcontas[1]->getSaldo(0000);
 
     return 0;
 }

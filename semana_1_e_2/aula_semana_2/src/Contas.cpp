@@ -21,11 +21,10 @@ void Contas::exibeDados(){
     std::cout<<"Titular :"<<this->titular<<"\nConta: "<<this->conta<<"\nTipo: "<<this->tipo<<std::endl;
 }
 
-double Contas::getSaldo(int senha){
+void Contas::getSaldo(int senha){
 
     if (senha== this->senha){
-        std::cout<<"Seu saldo atual e de R$: "<<this->saldo<<std::endl;
-        return this->saldo;
+        std::cout<<"O saldo da conta "<<this->conta<<" atual e de R$: "<<this->saldo<<std::endl;
     }else{
         std::cout<<"Senha invalida"<<std::endl;
     }
@@ -57,12 +56,22 @@ void Contas::saque(double valor, int senha){
     }
 }
 
-void Contas::transferencia(int conta, int senha, double valor, Contas* pc[]){
+void Contas::transferencia(int conta, Contas* pc[]){
+    int senha;
+    double valor;
+
+    std::cout<<"Digite a senha:"<<std::endl;
+    std::cin>>senha;
+
     if(senha==this->senha){
+    
+        std::cout<<"Qual o valor a ser transferido?"<<std::endl;
+        std::cin>>valor;
+    
         if(valor > 0 && valor < this->saldo){
             pc[conta-1]->saldo+=valor;
             this->saldo-=valor;
-            std::cout<<"Transferencia de R$:"<<valor<<" realizada com sucesso apra a conta: "<<conta<<std::endl;
+            std::cout<<"Transferencia de R$"<<valor<<" realizada com sucesso apra a conta: "<<conta<<std::endl;
             this->getSaldo(senha);
         }else{
             std::cout<<"valor invalido"<<std::endl;
