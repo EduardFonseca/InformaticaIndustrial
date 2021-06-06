@@ -81,6 +81,7 @@ void Contas::transferencia(int conta, Contas* pc[]){
     }
 }
 
+
 Contas::~Contas(){
     // std::cout << "destrutor da conta de: "<< this->titular<<"foi utilizado"<< std::endl;
 }
