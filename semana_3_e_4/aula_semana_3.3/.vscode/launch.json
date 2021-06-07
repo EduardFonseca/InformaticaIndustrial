@@ -8,7 +8,7 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/MobileRobot.exe",
+            "program": "${workspaceFolder}/Bibliotecas.exe",
             "preLaunchTask": "build",
             "args": [],
             "stopAtEntry": false,

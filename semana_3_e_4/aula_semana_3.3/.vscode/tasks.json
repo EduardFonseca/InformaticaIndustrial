@@ -16,7 +16,7 @@
         {
             "label": "run",
             "type": "shell",
-            "command": ".\\bin\\MobileRobot.exe",
+            "command": ".\\bin\\Bibliotecas.exe",
             "dependsOn": "build"
         }
     ]
