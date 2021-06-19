@@ -6,9 +6,10 @@
 class Contas
 {
 private:
+
+protected:
     double saldo;
     int senha;
-
 public:
     Contas();
     Contas(int senha,int conta, double saldo, std::string titular,std::string tipo);
