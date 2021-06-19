@@ -8,7 +8,7 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/Programa1.exe",
+            "program": "${workspaceFolder}/Banco.exe",
             "preLaunchTask": "build",
             "args": [],
             "stopAtEntry": false,

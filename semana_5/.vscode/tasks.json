@@ -8,16 +8,17 @@
             "type": "shell",
             "command": "make",
             "args": [],
-                "group": {
-                    "kind": "build",
-                    "isDefault": true
-                }
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
         },
         {
             "label": "run",
             "type": "shell",
-            "command": ".\\bin\\CA.exe",
-            "dependsOn": "build"
+            "command": ".\\bin\\Banco.exe",
+            "dependsOn": "build",
+            "problemMatcher": []
         }
     ]
 }

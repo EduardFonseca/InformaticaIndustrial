@@ -6,7 +6,7 @@ SRC     := src
 INCLUDE := inc
 
 LIBRARIES   :=
-EXECUTABLE  := pilha
+EXECUTABLE  := Banco
 
 
 all: $(BIN)/$(EXECUTABLE)
