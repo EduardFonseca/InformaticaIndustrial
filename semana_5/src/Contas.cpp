@@ -38,7 +38,7 @@ void Contas::getSaldo(int senha)
     }
 }
 
-void Contas::deposito()
+bool Contas::deposito()
 {
     int senha = this->pedeSenha();
     double valor = this->pedeValor();
@@ -46,14 +46,16 @@ void Contas::deposito()
     {
         this->saldo += valor;
         std::cout << "deposito de R$" << valor << " realizado com sucesso." << std::endl;
+        return true;
     }
     else
     {
         std::cout << "senha invalida" << std::endl;
+        return false;
     }
 }
 
-void Contas::saque()
+bool Contas::saque()
 {
     int senha = this->pedeSenha();
     double valor = this->pedeValor();
@@ -61,14 +63,16 @@ void Contas::saque()
     {
         this->saldo -= valor;
         std::cout << "saque de R$" << valor << " realizado com sucesso." << std::endl;
+        return true;
     }
     else
     {
         std::cout << "senha invalida" << std::endl;
+        return false;
     }
 }
 
-void Contas::transferencia(int conta, Contas *pc[], int tam)
+bool Contas::transferencia(int conta, Contas *pc[], int tam)
 {
     double valor;
     int senha = this->pedeSenha();
@@ -84,12 +88,14 @@ void Contas::transferencia(int conta, Contas *pc[], int tam)
             this->saldo -= valor;
             std::cout << "Transferencia de R$" << valor << " realizada com sucesso apra a conta: " << conta << std::endl;
             this->getSaldo(senha);
+            return true;
         }
     }
     else
     {
         std::cout << "senha invalida" << std::endl;
     }
+    return false;
 }
 
 using namespace std;

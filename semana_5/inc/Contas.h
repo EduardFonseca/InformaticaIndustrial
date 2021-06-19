@@ -19,9 +19,9 @@ public:
     int conta;
     void exibeDados();
     void getSaldo(int senha);
-    void deposito();
-    void saque();
-    void transferencia(int conta,Contas* pc[], int tam);
+    bool deposito();
+    bool saque();
+    bool transferencia(int conta,Contas* pc[], int tam);
 
     // verificacao de conta
     int verificacaoConta(int conta,Contas* pc[], int tam);
