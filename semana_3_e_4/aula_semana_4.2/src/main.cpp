@@ -8,6 +8,7 @@ int main(){
     Pilha<int> p1(10);
     Fila<int> f1(10);
 
+//teste commit
     cout<<"valores inseridos"<<endl;
     for(int i = 0;i<p1.getTam();i++){
         cout<<"pilha: "<<i+1<<" | fila: "<<i+1<<endl;

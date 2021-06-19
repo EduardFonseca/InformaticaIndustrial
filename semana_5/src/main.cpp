@@ -1,0 +1,1 @@
+D:\arquivos\Arquivos\GitHub\InformaticaIndustrial\.vscodear
