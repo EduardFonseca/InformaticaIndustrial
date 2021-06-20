@@ -1,14 +1,15 @@
 #ifndef CONTA_POUPANCA_H
 #define CONTA_POUPANCA_H
 
-#include "Contas.h"
+#include <contas.h>
+#include <string>
 
-class ContaPoupanca :public Conta
+class ContaPoupanca : public Contas
 {
 private:
     double taxa;
 public:
-    ContaPoupanca();
+    ContaPoupanca(int senha, int conta, double saldo, std::string titular, std::string tipo, double taxa);
     ~ContaPoupanca();
     void SimulaRendimento(int num_meses);
 };

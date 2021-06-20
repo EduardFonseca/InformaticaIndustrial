@@ -1,1 +1,2 @@
 fazer com que a classe banco tenha capacidade de criar novas. o gerente sera criado dentro delacomo um Struct e ele tera a capacidade de acessar as funcoes de administracoes de conta)
+o numero de contas sera uma variavel privada da classe banco e sera atualizado para a alocacao dinamica dos vetores

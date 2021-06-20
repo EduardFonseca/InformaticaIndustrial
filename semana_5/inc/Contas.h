@@ -12,6 +12,8 @@ protected:
     int senha;
 public:
     Contas();
+    //TODO:
+    //fazer geracao de numero de conta
     Contas(int senha,int conta, double saldo, std::string titular,std::string tipo);
     ~Contas();
     std::string titular;
