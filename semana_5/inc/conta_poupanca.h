@@ -7,12 +7,13 @@
 class ContaPoupanca : public Contas
 {
 private:
-    double taxa;
+    int taxa;
 public:
     ContaPoupanca(int senha, int conta, double saldo, std::string titular, std::string tipo, int taxa);
     ~ContaPoupanca();
     void SimulaRendimento(int num_meses);
-    int dadoExclusivo();
+    virtual std::string getDadoExclusivo();
+    std::string getDados();
 };
 
 

@@ -18,16 +18,17 @@ ContaPoupanca::~ContaPoupanca(){
 
 }
 
-int ContaPoupanca::dadoExclusivo(){
-    return this->taxa;
-}
-
 void ContaPoupanca::SimulaRendimento(int num_meses){
     double rendimentos;
     //como poupanca e um juros composto temos a formula: rendimento=C(1+i)^t
     rendimentos=this->saldo*pow(1+(this->taxa*0.01),num_meses);
 
     std::cout<<"rendimento em "<<num_meses<<" meses foi de: R$"<<rendimentos<<std::endl;
+}
 
+using namespace std;
+std::string ContaPoupanca::getDadoExclusivo(){
+    string Dados = to_string(this->taxa);
+    return Dados;
 }
 

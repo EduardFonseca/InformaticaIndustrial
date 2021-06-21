@@ -16,13 +16,13 @@ class Banco
 {
 private:
     Gerente gerente;
-    Contas *pcontas;
+    Contas* pcontas;
     int num_contas;
     std::string path;
     Contas cria_conta();
     Contas cria_conta(int senha,int conta,double saldo, std::string titular, std::string tipo_de_conta,int dado_extra);
     bool salva_arquivo();
-    
+
 public:
     Banco(std::string nome, int senha, std::string path);
     ~Banco();

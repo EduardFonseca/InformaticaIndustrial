@@ -24,7 +24,8 @@ public:
     bool transferencia(int conta,Contas* pc[], int tam);
 
     int getSenha();
-    virtual int dadoExclusivo();
+
+    virtual std::string getDadoExclusivo();
     // verificacao de conta
     int verificacaoConta(int conta,Contas* pc[], int tam);
     // criacao defuncoes para interacao de usuario

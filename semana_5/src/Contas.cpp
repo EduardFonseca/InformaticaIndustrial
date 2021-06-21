@@ -141,8 +141,9 @@ int Contas::getSenha(){
     return this->senha;
 }
 
-int Contas::dadoExclusivo(){
+using namespace std;
 
+string Contas::getDadoExclusivo(){
 }
 
 Contas::~Contas()

@@ -138,7 +138,7 @@ bool Banco::salva_arquivo()
         }
         for (int i = 0;i<this->num_contas;i++){
 
-            ofile << this->pcontas[i].getSenha()<< "," << this->pcontas[i].conta<< "," << this->pcontas[i].titular<< "," << this->pcontas[i].tipo<< "," << this->pcontas[i].getSaldo(this->pcontas[i].getSenha()) << "," << this->pcontas[i].dadoExclusivo()<<endl;
+            ofile << this->pcontas[i].getSenha()<< "," << this->pcontas[i].conta<< "," << this->pcontas[i].titular<< "," << this->pcontas[i].tipo<< "," << this->pcontas[i].getSaldo(this->pcontas[i].getSenha()) << "," << this->pcontas[i].getDadoExclusivo()<<endl;
 
         }
     }
@@ -149,7 +149,7 @@ bool Banco::salva_arquivo()
 }
 
 bool Banco::leitura_dados(const string path){
-    //TODO: deve ler as contas cadastradas de um aqruivo .txt
+
     ifstream ifile;
     ifile.open(path);
     try
@@ -197,7 +197,6 @@ bool Banco::leitura_dados(const string path){
     {
         std::cerr << e.what() << '\n';
     }
-    
 }
 
 bool Banco::troca_gerente(int senha_gerente)

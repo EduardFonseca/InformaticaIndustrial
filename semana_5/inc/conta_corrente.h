@@ -2,6 +2,7 @@
 #define CONTA_CORRENTE_H
 
 #include "contas.h"
+#include <string>
 class ContaCorrente : public Contas
 {
 private:
@@ -9,7 +10,8 @@ private:
 public:
     ContaCorrente(int senha, int conta, double saldo, std::string titular, std::string tipo, int num_cartao);
     ~ContaCorrente();
-    int dadoExclusivo();
+
+    virtual std::string getDadoExclusivo();
 };
 
 
