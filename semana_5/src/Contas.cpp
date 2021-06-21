@@ -26,11 +26,11 @@ void Contas::exibeDados()
     std::cout << "Titular :" << this->titular << "\nConta: " << this->conta << "\nTipo: " << this->tipo << std::endl;
 }
 
-void Contas::getSaldo(int senha)
+int Contas::getSaldo(int senha)
 {
     if (senha == this->senha)
     {
-        std::cout << "O saldo da conta " << this->conta << " atual e de R$: " << this->saldo << std::endl;
+        return this->saldo;
     }
     else
     {
@@ -135,6 +135,14 @@ double Contas::pedeValor()
         cout << "valor invalido." << endl;
         return 0;
     }
+}
+
+int Contas::getSenha(){
+    return this->senha;
+}
+
+int Contas::dadoExclusivo(){
+
 }
 
 Contas::~Contas()

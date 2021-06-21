@@ -12,19 +12,19 @@ protected:
     int senha;
 public:
     Contas();
-    //TODO:
-    //fazer geracao de numero de conta
     Contas(int senha,int conta, double saldo, std::string titular,std::string tipo);
     ~Contas();
     std::string titular;
     std::string tipo;
     int conta;
     void exibeDados();
-    void getSaldo(int senha);
+    int getSaldo(int senha);
     bool deposito();
     bool saque();
     bool transferencia(int conta,Contas* pc[], int tam);
 
+    int getSenha();
+    virtual int dadoExclusivo();
     // verificacao de conta
     int verificacaoConta(int conta,Contas* pc[], int tam);
     // criacao defuncoes para interacao de usuario

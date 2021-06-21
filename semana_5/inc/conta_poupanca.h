@@ -9,9 +9,10 @@ class ContaPoupanca : public Contas
 private:
     double taxa;
 public:
-    ContaPoupanca(int senha, int conta, double saldo, std::string titular, std::string tipo, double taxa);
+    ContaPoupanca(int senha, int conta, double saldo, std::string titular, std::string tipo, int taxa);
     ~ContaPoupanca();
     void SimulaRendimento(int num_meses);
+    int dadoExclusivo();
 };
 
 

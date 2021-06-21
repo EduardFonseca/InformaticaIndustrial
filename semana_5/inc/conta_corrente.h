@@ -9,6 +9,7 @@ private:
 public:
     ContaCorrente(int senha, int conta, double saldo, std::string titular, std::string tipo, int num_cartao);
     ~ContaCorrente();
+    int dadoExclusivo();
 };
 
 

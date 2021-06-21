@@ -1,2 +1,2 @@
-fazer com que a classe banco tenha capacidade de criar novas. o gerente sera criado dentro delacomo um Struct e ele tera a capacidade de acessar as funcoes de administracoes de conta)
-o numero de contas sera uma variavel privada da classe banco e sera atualizado para a alocacao dinamica dos vetores
+- Crie um método para ler as contas cadastradas no arquivo de texto***. Este método deverá ser invocado no construtor da classe banco, de modo que o vetor de contas seja preenchido automaticamente todas as vezes que o programa for iniciado.
+-cirar funcao q me retorne o atributo exclusivo com base no tipo de conta que estou usando;
