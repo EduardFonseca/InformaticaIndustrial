@@ -15,6 +15,7 @@ Banco::Banco(string nome, int senha, string path)
     this->num_contas = 0;
     this->pcontas = new Contas[num_contas];
     this->path=path;
+    this->salva_arquivo();
 }
 
 Banco::~Banco()
@@ -61,7 +62,7 @@ bool Banco::nova_conta(int senha_gerente)
             this->pcontas[i] = newContas[i];
         }
         delete[] newContas;
-        cout << "contas criadas com sucesso" << endl;
+        this->salva_arquivo();
         return true;
     }
     return false;
@@ -111,7 +112,7 @@ int Banco::get_num_contas()
     return this->num_contas;
 }
 
-bool Banco::gera_arquivo()
+bool Banco::salva_arquivo()
 {
     try
     {

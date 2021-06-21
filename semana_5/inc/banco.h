@@ -20,12 +20,12 @@ private:
     int num_contas;
     std::string path;
     Contas cria_conta();
-
+    bool salva_arquivo();
 
 public:
     Banco(std::string nome, int senha, std::string path);
     ~Banco();
-    bool gera_arquivo();
+    
     int login_gerente();
     bool nova_conta(int senha_gerente);
     int get_num_contas();
