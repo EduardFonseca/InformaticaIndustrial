@@ -11,5 +11,6 @@ int main(){
     b1.nova_conta(b1.login_gerente());
     b1.nova_conta(b1.login_gerente());
     b1.get_num_contas();
+    
     return 0;
 }

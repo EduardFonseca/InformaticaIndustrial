@@ -3,6 +3,7 @@
 #include "conta_corrente.h"
 #include "conta_poupanca.h"
 #include <iostream>
+#include <vector>
 #include <fstream>
 #include <string>
 
@@ -12,10 +13,8 @@ Banco::Banco(string nome, int senha, string path)
 {
     this->gerente.nome = nome;
     this->gerente.senha = senha;
-    this->num_contas = 0;
-    this->pcontas = new Contas[num_contas];
     this->path=path;
-    this->salva_arquivo();
+    this->leitura_dados(this->path);
 }
 
 Banco::~Banco()
@@ -66,6 +65,20 @@ bool Banco::nova_conta(int senha_gerente)
         return true;
     }
     return false;
+}
+
+Contas Banco::cria_conta(int senha,int conta,double saldo, string titular, string tipo_de_conta,int dado_extra)
+{
+    if (tipo_de_conta == "Corrente")
+    {
+        ContaCorrente newConta(senha, conta, saldo, titular, tipo_de_conta, dado_extra);
+        return newConta;
+    }
+    else if (tipo_de_conta == "Poupanca")
+    {
+        ContaPoupanca newConta(senha, conta, saldo, titular, tipo_de_conta, dado_extra);
+        return newConta;
+    }
 }
 
 Contas Banco::cria_conta()
@@ -133,6 +146,58 @@ bool Banco::salva_arquivo()
     {
         cout << e.what() << '\n';
     }
+}
+
+bool Banco::leitura_dados(const string path){
+    //TODO: deve ler as contas cadastradas de um aqruivo .txt
+    ifstream ifile;
+    ifile.open(path);
+    try
+    {
+        if(ifile.is_open()){
+            string line;
+            getline(ifile,line);
+            int n=0;
+            int idx;
+            getline(ifile,line);
+            idx=line.find(":");
+            this->num_contas=stod(line.substr(idx + 2, line.size() - idx));
+
+            this->pcontas = new Contas[this->num_contas];
+
+            for(int i=0; i<this->num_contas;i++){
+                getline(ifile,line);
+                idx=line.find_first_of(",");
+                int senha = stod(line.substr(0,idx));
+                line=line.substr(idx+1,line.size()-idx);
+
+                idx=line.find_first_of(",");
+                int conta = stod(line.substr(0,idx));
+                line=line.substr(idx+1,line.size()-idx);
+
+                idx=line.find_first_of(",");
+                string titular = line.substr(0,idx);
+                line=line.substr(idx+1,line.size()-idx);
+
+                idx=line.find_first_of(",");
+                string tipo = line.substr(0,idx);
+                line=line.substr(idx+1,line.size()-idx);
+
+                idx=line.find_first_of(",");
+                double saldo = stod(line.substr(0,idx));
+                int dadoextra = stod(line.substr(idx+1,line.size()-idx));
+
+                this->pcontas[i] = this->cria_conta(senha,conta,saldo,titular,tipo,dadoextra);
+            }
+        }else {
+            return false;
+        }
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+    
 }
 
 bool Banco::troca_gerente(int senha_gerente)
