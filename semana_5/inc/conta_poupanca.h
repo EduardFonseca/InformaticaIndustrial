@@ -13,7 +13,6 @@ public:
     ~ContaPoupanca();
     void SimulaRendimento(int num_meses);
     virtual std::string getDadoExclusivo();
-    std::string getDados();
 };
 
 

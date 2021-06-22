@@ -13,13 +13,12 @@ Banco::Banco(string nome, int senha, string path)
 {
     this->gerente.nome = nome;
     this->gerente.senha = senha;
-    this->path=path;
+    this->path = path;
     this->leitura_dados(this->path);
 }
 
 Banco::~Banco()
 {
-    delete[] this->pcontas;
 }
 
 int Banco::login_gerente()
@@ -40,43 +39,45 @@ int Banco::login_gerente()
 
 bool Banco::nova_conta(int senha_gerente)
 {
+    //TODO: criar vetores de contas correntes e conta poupanca
     if (senha_gerente != -1)
     {
-        Contas *newContas = new Contas[this->num_contas + 1]; //criacao do espaco de memoria novo para as novas contas
-
+        vector<Contas *> newContas; //criacao do espaco de memoria novo para as novas contas
         //alocacao das novas contas no espaco de memoria temporaria
-        for (int i = 0; i < this->num_contas; i++)
+        this->cria_conta();
+        for (int i = 0; i < this->CP.size(); i++)
         {
-            newContas[i] = this->pcontas[i];
+            newContas.push_back(&this->CP[i]);
+        }for (int i = 0; i < this->CC.size(); i++)
+        {
+            newContas.push_back(&this->CC[i]);
         }
-        newContas[num_contas] = this->cria_conta(); //funcao q adiciona a conta pelo terminal
-        this->num_contas += 1;
 
-        delete[] this->pcontas;
-        this->pcontas = new Contas[num_contas];
-
+        // newContas[num_contas] = &this->cria_conta(); //funcao q adiciona a conta pelo terminal
+        this->num_contas = this->CC.size()+this->CP.size();
         //retorno das contas para o ponterio de contas da classe Banco
         for (int i = 0; i < this->num_contas; i++)
         {
-            this->pcontas[i] = newContas[i];
+            this->pcontas.push_back(newContas[i]);
         }
-        delete[] newContas;
         this->salva_arquivo();
         return true;
     }
     return false;
 }
 
-Contas Banco::cria_conta(int senha,int conta,double saldo, string titular, string tipo_de_conta,int dado_extra)
+Contas Banco::cria_conta(int senha, int conta, double saldo, string titular, string tipo_de_conta, int dado_extra)
 {
     if (tipo_de_conta == "Corrente")
     {
         ContaCorrente newConta(senha, conta, saldo, titular, tipo_de_conta, dado_extra);
+        this->CC.push_back(newConta);
         return newConta;
     }
     else if (tipo_de_conta == "Poupanca")
     {
         ContaPoupanca newConta(senha, conta, saldo, titular, tipo_de_conta, dado_extra);
+        this->CP.push_back(newConta);
         return newConta;
     }
 }
@@ -90,8 +91,8 @@ Contas Banco::cria_conta()
     cin >> titular;
     cout << "Digite o tipo de conta:";
     cin >> tipo_de_conta;
-    conta=this->num_contas+1;
-    cout<<"Numero da conta: "<< conta <<endl;
+    conta = this->num_contas + 1;
+    cout << "Numero da conta: " << conta << endl;
     cout << "Digite a senha da conta: ";
     cin >> senha;
     cout << "Digite o saldo da conta: ";
@@ -107,6 +108,7 @@ Contas Banco::cria_conta()
         cout << "Digite o numero do cartao: ";
         cin >> num_cartao;
         ContaCorrente newConta(senha, conta, saldo, titular, tipo_de_conta, num_cartao);
+        this->CC.push_back(newConta);
         return newConta;
     }
     else if (tipo_de_conta == "Poupanca")
@@ -115,6 +117,7 @@ Contas Banco::cria_conta()
         cout << "Digite taxa mensal da conta: ";
         cin >> taxa;
         ContaPoupanca newConta(senha, conta, saldo, titular, tipo_de_conta, taxa);
+        this->CP.push_back(newConta);
         return newConta;
     }
 }
@@ -134,12 +137,11 @@ bool Banco::salva_arquivo()
         if (ofile.is_open())
         {
             ofile << "%Contas banco" << endl;
-            ofile << "Contas cadastradas: "<< this->num_contas<<endl;
+            ofile << "Contas cadastradas: " << this->num_contas << endl;
         }
-        for (int i = 0;i<this->num_contas;i++){
-
-            ofile << this->pcontas[i].getSenha()<< "," << this->pcontas[i].conta<< "," << this->pcontas[i].titular<< "," << this->pcontas[i].tipo<< "," << this->pcontas[i].getSaldo(this->pcontas[i].getSenha()) << "," << this->pcontas[i].getDadoExclusivo()<<endl;
-
+        for (int i = 0; i < this->num_contas; i++)
+        {
+            ofile << this->pcontas[i]->getSenha() << "," << this->pcontas[i]->conta << "," << this->pcontas[i]->titular << "," << this->pcontas[i]->tipo << "," << this->pcontas[i]->getSaldo(this->pcontas[i]->getSenha()) << "," << this->pcontas[i]->getDadoExclusivo() << endl;
         }
     }
     catch (const std::exception &e)
@@ -148,52 +150,52 @@ bool Banco::salva_arquivo()
     }
 }
 
-bool Banco::leitura_dados(const string path){
-
+bool Banco::leitura_dados(const string path)
+{
     ifstream ifile;
     ifile.open(path);
     try
     {
-        if(ifile.is_open()){
+        if (ifile.is_open())
+        {
             string line;
-            getline(ifile,line);
-            int n=0;
+            getline(ifile, line);
             int idx;
-            getline(ifile,line);
-            idx=line.find(":");
-            this->num_contas=stod(line.substr(idx + 2, line.size() - idx));
+            getline(ifile, line);
+            idx = line.find(":");
+            this->num_contas = stod(line.substr(idx + 2, line.size() - idx));
+            for (int i = 0; i < this->num_contas; i++)
+            {
+                getline(ifile, line);
+                idx = line.find_first_of(",");
+                int senha = stod(line.substr(0, idx));
+                line = line.substr(idx + 1, line.size() - idx);
 
-            this->pcontas = new Contas[this->num_contas];
+                idx = line.find_first_of(",");
+                int conta = stod(line.substr(0, idx));
+                line = line.substr(idx + 1, line.size() - idx);
 
-            for(int i=0; i<this->num_contas;i++){
-                getline(ifile,line);
-                idx=line.find_first_of(",");
-                int senha = stod(line.substr(0,idx));
-                line=line.substr(idx+1,line.size()-idx);
+                idx = line.find_first_of(",");
+                string titular = line.substr(0, idx);
+                line = line.substr(idx + 1, line.size() - idx);
 
-                idx=line.find_first_of(",");
-                int conta = stod(line.substr(0,idx));
-                line=line.substr(idx+1,line.size()-idx);
+                idx = line.find_first_of(",");
+                string tipo = line.substr(0, idx);
+                line = line.substr(idx + 1, line.size() - idx);
 
-                idx=line.find_first_of(",");
-                string titular = line.substr(0,idx);
-                line=line.substr(idx+1,line.size()-idx);
+                idx = line.find_first_of(",");
+                double saldo = stod(line.substr(0, idx));
+                int dadoextra = stod(line.substr(idx + 1, line.size() - idx));
 
-                idx=line.find_first_of(",");
-                string tipo = line.substr(0,idx);
-                line=line.substr(idx+1,line.size()-idx);
-
-                idx=line.find_first_of(",");
-                double saldo = stod(line.substr(0,idx));
-                int dadoextra = stod(line.substr(idx+1,line.size()-idx));
-
-                this->pcontas[i] = this->cria_conta(senha,conta,saldo,titular,tipo,dadoextra);
+                this->cria_conta(senha, conta, saldo, titular, tipo, dadoextra);
             }
-        }else {
+        }
+        else
+        {
             return false;
         }
     }
-    catch(const std::exception& e)
+    catch (const std::exception &e)
     {
         std::cerr << e.what() << '\n';
     }

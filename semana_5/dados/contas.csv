@@ -1,5 +1,8 @@
 %Contas banco
-Contas cadastradas: 3
-1,1,gonze,Corrente,1,5555
-1,2,Paschoal,Corrente,1,12321321
-1234,3,Poupanca,Poupanca,3,31231321
+Contas cadastradas: 6
+1223,2,jose,Poupanca,12,1
+1234,3,Luiz,Poupanca,1000,2
+4444,6,Maria,Poupanca,3000,7
+1222,1,Eduardo,Corrente,12,321456
+1234,4,Bernardo,Corrente,1000,123456
+1111,5,guilherme,Corrente,1000,123456789
