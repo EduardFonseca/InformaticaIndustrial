@@ -1,5 +1,6 @@
+from kivy.uix.boxlayout import BoxLayout
 from kivymd.uix.card import MDCard
-
+import pickle5 as pickle
 
 class DataCards(MDCard):
     title = "Data Card"
@@ -15,7 +16,7 @@ class DataCards(MDCard):
                 self.set_data(self._read_data(self.tag['address'],1)[0])
         except Exception as e:
             print(f"Erro ao realizar leitura: ",e.args)
-    
+
     def write_data(self):
         try:
             if self._modbusClient.is_open():
@@ -23,6 +24,14 @@ class DataCards(MDCard):
         except Exception as e:
             print(f"Erro ao realizar escrita de dado: ",e.args)
 
+    def removetag(self):
+        a_file = open("tags.pkl", "rb")
+        tags = pickle.load(a_file)
+        a_file.close()
+        a_file = open("tags.pkl", "wb")
+        tags.remove(self.tag)
+        pickle.dump(tags, a_file)
+        a_file.close()
 class CardHoldingRegister(DataCards):
     def __init__(self,tag,modbusClient, **kwargs):
         super().__init__(tag,modbusClient, **kwargs)
@@ -52,3 +61,7 @@ class CardCoil(DataCards):
     
     def get_data(self):
         return self.ids.switch.active
+
+
+class Content(BoxLayout):
+    pass

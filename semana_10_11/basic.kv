@@ -56,6 +56,12 @@
                         padding: 0.05*Window.width, '150dp'
                         spacing: (Window.width/5 - 0.1*Window.width)/3
                         adaptive_height: True
+                MDFloatingActionButton:
+                    id: addbutton
+                    icon: "plus"
+                    md_bg_color: app.theme_cls.primary_color
+                    pos: '20dp','20dp'
+                    on_release: app.show_dialog()
 
 
 
@@ -63,15 +69,24 @@
     orientation: 'vertical'
     padding: '8dp'
     size_hint: None,None
-    size: Window.width/5,"80dp"
+    size: Window.width/5,"120dp"
     pos_hint:{"center_x":0.5,"cente_y":0.5}
-    MDLabel:
-        text: root.title
-        size_hint_y: None
-        height: self.texture_size[1]
-        pos_hint:{'top':1}
-    MDSeparator:
-        height: '1dp'
+    MDTextButton:
+        id: closebutton
+        text: "X"
+        theme_text_color: "Custom"
+        text_color: app.theme_cls.primary_color
+        pos_hint:{"top":1,"right":1}
+        on_release: root.removetag()
+    MDBoxLayout:
+        orientation: 'vertical'
+        MDLabel:
+            text: root.title
+            size_hint_y: None
+            height: self.texture_size[1]
+            pos_hint:{'top':1}
+        MDSeparator:
+            height: '1dp'
 
 <CardHoldingRegister>:
     MDTextField:
@@ -89,3 +104,40 @@
     MDSwitch:
         id: switch
         on_release: root.write_data()
+
+<Content>
+    orientation: "vertical"
+    spacing: "12dp"
+    size_hint_y: None
+    height: "300dp"
+
+    MDTextField:
+        id: name
+        hint_text: "Nome"
+    MDTextField:
+        id:description
+        hint_text: "Descricao"
+    MDTextField:
+        id:address
+        hint_text:"Endereco"
+    MDLabel:
+        text:"Tipo:"
+    MDBoxLayout:
+        orientation: 'horizontal'
+        MDCheckbox:
+            id: input
+            group: "check"
+        MDLabel:
+            text:'Input'
+        MDCheckbox:
+            id: holding
+            group: "check"
+        MDLabel:
+            text:'Holding'
+        MDCheckbox:
+            id: coil
+            group: "check"
+        MDLabel:
+            text:'Coil'
+
+    
