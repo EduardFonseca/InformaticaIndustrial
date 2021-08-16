@@ -1,10 +1,10 @@
 from pyModbusTCP.client import ModbusClient
-from dbhandler import DBHandler
 from datetime import date, datetime
 from time import sleep, strptime
 from tabulate import tabulate
-from threading import Thread
-
+from threading import Thread, Lock
+from db import Session, Base,engine
+from models import DadoCLP
 class ModbusPersistencia():
     """
     implementa a funcionalidade de persistencia de dados lidos 
@@ -14,7 +14,9 @@ class ModbusPersistencia():
         self._cliente_modbus = ModbusClient(host=server_ip,port=server_port)
         self._scan_time = scan_time
         self._tags_addrs = addrs
-        self._dbhandler = DBHandler('cliente\data\data.db',self._tags_addrs.keys(),'modbusData')
+        self._session = Session()
+        Base.metadata.create_all(engine)
+        self._lock = Lock()
         self.guardar_dados = Thread(target=self.guardar_dados)
 
     def guardar_dados(self):
@@ -23,10 +25,14 @@ class ModbusPersistencia():
             self._cliente_modbus.open()
             data = {}
             while True:
-                data['timestamp'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")
+                data['timestamp'] = datetime.now()
                 for tag in self._tags_addrs:
                     data[tag] = self._cliente_modbus.read_holding_registers(self._tags_addrs[tag],1)[0]
-                self._dbhandler.inset_data(data)
+                dado = DadoCLP(**data)
+                self._lock.acquire()
+                self._session.add(dado)
+                self._session.commit()
+                self._lock.release()
                 sleep(self._scan_time)
 
         except Exception as e:
@@ -42,10 +48,13 @@ class ModbusPersistencia():
             while True:
                 init = input("Digite o horario inicial para a busca (DD/MM/AAAA HH:MM:SS) :")
                 final = input("Digite o horario final para a busca (DD/MM/AA HH:MM:SS) :")
-                init =  datetime.strptime(init,'%d/%m/%Y %H:%M:%S').strftime("%Y-%m-%d %H:%M:%S")
-                final =  datetime.strptime(final,'%d/%m/%Y %H:%M:%S').strftime("%Y-%m-%d %H:%M:%S")
-                result = self._dbhandler.select_data(self._tags_addrs.keys(),init,final)
-                print(tabulate(result['data'],headers=result['cols']))
+                init =  datetime.strptime(init,'%d/%m/%Y %H:%M:%S')
+                final =  datetime.strptime(final,'%d/%m/%Y %H:%M:%S')
+                self._lock.acquire()
+                result = self._session.query(DadoCLP).filter(DadoCLP.timestamp.between(init,final))
+                self._lock.release()
+                result_fmt_list = [obj.get_attr_printable_list() for obj in result]
+                print(tabulate(result_fmt_list,headers=DadoCLP.__table__.columns.keys()))
 
         except Exception as e:
             print("erro na busca dos dados:", e.args)

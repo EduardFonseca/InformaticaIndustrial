@@ -8,5 +8,5 @@ tags_addrs = {
 
 mod = ModbusPersistencia('localhost',502,tags_addrs)
 
-# mod.guardar_dados.start()
-# mod.acesso_dados_historico()
+mod.guardar_dados.start()
+mod.acesso_dados_historico()
