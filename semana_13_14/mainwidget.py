@@ -1,5 +1,3 @@
-from copy import Error
-
 from sqlalchemy import engine
 from popups import ModbusPopup, ScanTimePopup, DataGraphPopup, HistGraphPopup
 from kivy.uix.boxlayout import BoxLayout
